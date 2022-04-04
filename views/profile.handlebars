@@ -1,26 +1,35 @@
+{{#if logged_in}}
+
 <div class="row">
   <div class="col-auto">
     <h2>Welcome, {{name}}. Here are your posts:</h2>
   </div>
 </div>
 
-        <div class="box">
-          <div class="flex-head">
-              <span class="head-title">Head Title</span>
-              <span class="posted-by">Posted by user on date</span>
-          </div>
-          <div class="flex-content">
-              First Item: Content
-          </div>
-        </div>  
+{{#each posts as |post| }}
+  <div class="box">
+    <div class="flex-head">
+        <span class="head-title"><a href="/post/{{post.id}}">{{post.title}}</a></span>
+        <span class="posted-by">Posted on {{format_date post.createdAt}}</span>
+        {{!-- <span class="posted-by">Posted by {{post.user.name}} on Dec 1, 2022</span> --}}
+    </div>
+    <div class="flex-content">
+        {{post.content}}
+    </div>
+  </div>  
+{{/each}}  
 
   
-  <div id="new-post-button">
-    <a href="/newpost">+ New Post</a>
-  </div>
+<div id="new-post-button">
+  <a href="/newpost">+ New Post</a>
+</div>
 
+{{else}}
+<a href="/login"> You must be logged in to see your dashboard </a>
 
-  {{#if projects.length}}
+{{/if}}
+
+  {{!-- {{#if projects.length}}
   <div class="col-md-6 project-list">
     <h3>Current Projects:</h3>
 
@@ -36,6 +45,6 @@
     {{/each}}
   </div>
   {{/if}}
-</div>
+</div> --}}
 
 <script src="./js/profile.js"></script>

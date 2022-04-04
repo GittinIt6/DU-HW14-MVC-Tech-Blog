@@ -20,7 +20,8 @@
         <a href="/login">Login</a>
         {{/unless}}
         {{#if logged_in}}
-        <a href="/logout">Logout</a>
+        <button class="no-button" id="logout">Logout</button>
+        {{!-- <a href="/api/users/logout">Logout</a> --}}
         {{/if}}
       </nav>
       <div id="title">
@@ -39,9 +40,9 @@
     </footer>
 
   <!-- Render script for logged in users only -->
-  <!-- {{#if logged_in}} -->
-  <!-- <script src="/js/logout.js"></script> -->
-  <!-- {{/if}} -->
+{{#if logged_in}}
+<script src="/js/logout.js"></script>
+{{/if}}
 </body>
 
 </html>

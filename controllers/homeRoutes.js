@@ -1,26 +1,24 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Post, User } = require('../models');
 // let title = { name: "The Tech Blog"};
 router.get('/', async (req, res) => {
   try {
-    // const queryOneData = await ModelOne.findAll();
-    // const ContentData = {
-    //   "id": queryOneData[0].dataValues.id,
-    //   "content": queryOneData[0].dataValues.content,
-    // };
+    // Get all projects and JOIN with user data
+    const postData = await Post.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
 
-    // const queryTwoData = await ModelTwo.findAll();
-    // const subContentData = {
-    //   "id": queryTwoData[0].dataValues.id,
-    //   "SubContent": queryTwoData[0].dataValues.SubContent,
-    //   "one_id": queryTwoData[0].dataValues.one_id,
-    // };
+    // Serialize data so the template can read it
+    const posts = postData.map((post) => post.get({ plain: true }));
 
-    // res.render('content', { 
-    //   ContentData, 
-    //   subContentData 
-    // });
-    res.render('homepage', {
+    // Pass serialized data and session flag into template
+    res.render('homepage', { 
+      posts, 
       logged_in: req.session.logged_in,
       title: "The Tech Blog"
     });
@@ -31,25 +29,18 @@ router.get('/', async (req, res) => {
 
 router.get('/login', async (req, res) => {
   try {
-    // const queryOneData = await ModelOne.findAll();
-    // const ContentData = {
-    //   "id": queryOneData[0].dataValues.id,
-    //   "content": queryOneData[0].dataValues.content,
-    // };
-
-    // const queryTwoData = await ModelTwo.findAll();
-    // const subContentData = {
-    //   "id": queryTwoData[0].dataValues.id,
-    //   "SubContent": queryTwoData[0].dataValues.SubContent,
-    //   "one_id": queryTwoData[0].dataValues.one_id,
-    // };
-
+  // If the user is already logged in, redirect the request to /profile
+  if (req.session.logged_in) {
+    res.redirect('/profile');
+    return;
+  }
+  
+  else {
     res.render('login', { 
-      // ContentData, 
-      // subContentData,
-      logged_in: req.session.logged_in,
       title: "The Tech Blog" 
     });
+  }
+
   } catch (err) {
     res.status(500).json(err);
   }
@@ -57,29 +48,22 @@ router.get('/login', async (req, res) => {
 
 router.get('/signup', async (req, res) => {
   try {
-    // const queryOneData = await ModelOne.findAll();
-    // const ContentData = {
-    //   "id": queryOneData[0].dataValues.id,
-    //   "content": queryOneData[0].dataValues.content,
-    // };
-
-    // const queryTwoData = await ModelTwo.findAll();
-    // const subContentData = {
-    //   "id": queryTwoData[0].dataValues.id,
-    //   "SubContent": queryTwoData[0].dataValues.SubContent,
-    //   "one_id": queryTwoData[0].dataValues.one_id,
-    // };
-
-    res.render('signup', { 
-      // ContentData, 
-      // subContentData,
-      logged_in: req.session.logged_in,
-      title: "The Tech Blog" 
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+    // If the user is already logged in, redirect the request to /profile
+    if (req.session.logged_in) {
+      res.redirect('/profile');
+      return;
+    }
+    
+    else {
+      res.render('signup', { 
+        title: "The Tech Blog" 
+      });
+    }
+  
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 
 router.get('/profile', async (req, res) => {
@@ -96,13 +80,35 @@ router.get('/profile', async (req, res) => {
     //   "SubContent": queryTwoData[0].dataValues.SubContent,
     //   "one_id": queryTwoData[0].dataValues.one_id,
     // };
+    if (req.session.logged_in === true) {
+      const currentUserData = await User.findByPk(req.session.user_id, {
+        attributes: { exclude: ['password'] },
+        include: [{ model: Post }],
+      });
+  
+      const user = currentUserData.get({ plain: true });
+  
+      res.render('profile', {
+        ...user,
+        logged_in: true,
+        title: "Your Dashboard"
+      });
+    }
 
-    res.render('profile', { 
-      // ContentData, 
-      // subContentData,
-      logged_in: req.session.logged_in,
-      title: "Your Dashboard" 
-    });
+    else {
+      res.render('profile', {
+        logged_in: false,
+        title: "Your Dashboard"
+      });
+    }
+
+
+    // res.render('profile', { 
+    //   // ContentData, 
+    //   currentUserData,
+    //   logged_in: req.session.logged_in,
+    //   title: "Your Dashboard" 
+    // });
   } catch (err) {
     res.status(500).json(err);
   }
