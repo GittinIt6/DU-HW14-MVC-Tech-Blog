@@ -1,49 +1,42 @@
-{{!-- {{#each posts as |post| }} --}}
-        <div class="box">
-          <div class="flex-head">
-              <span class="head-title"><a href="/post/{{posts.id}}">{{posts.title}}</a></span>
-              <span class="posted-by">Posted by {{posts.user.name}} on {{format_date posts.createdAt}}</span>
-              {{!-- <span class="posted-by">Posted by {{post.user.name}} on Dec 1, 2022</span> --}}
-          </div>
-          <div class="flex-content">
-              {{posts.content}}
-          </div>
-        </div> 
-        {{#each commentAry.[0] }}
-        <div class="box">
-          <div class="flex-head">
-              {{!-- <span class="head-title"><a href="/post/{{post.id}}">{{post.title}}</a></span> --}}
-              <span class="posted-by">Posted by userID: {{user_id}} on {{format_date createdAt}}</span>
-          </div>
-          <div class="flex-content">
-              {{commentText}}
-          </div>
-        </div>  
-        {{/each}}
-{{!-- {{/each}} --}}
+<div class="box">
+  <div class="flex-head">
+      <span class="head-title"><a href="/post/{{posts.id}}">{{posts.title}}</a> (Post ID:<span id="post-id">{{posts.id}}</span>)</span>
+      <span class="posted-by">Posted by {{posts.user.name}} on {{format_date posts.createdAt}}</span>
+  </div>
+  <div class="flex-content">
+      {{posts.content}}
+  </div>
+</div> 
+{{#each commentAry.[0] }}
+    <div class="box">
+      <div class="flex-head">
+          <span class="posted-by">Comment posted by userID: {{user_id}} on {{format_date createdAt}}</span>
+      </div>
+      <div class="flex-content">
+          {{commentText}}
+      </div>
+    </div>  
+{{/each}}
 
+{{#if logged_in}}
+<div class="box">
+  <div class="flex-head">
+      <span class="head-title">Add New Comment: (Current Logged In User: {{name}})</span>
+  </div>
+  <div class="flex-content">
+    <form class="form new-comment-form">
+      <div class="form-group">
+        <label for="post-content">Comment: (512 character max)</label><br>
+        <textarea class="form-input" id="new-comment-input" name="post-content" maxlength="512" rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Add New Comment</button>
+      </div>
+    </form>
+  </div>
+</div> 
+{{/if}}
 
-
-{{!-- {{#if logged_in}}
-<div id="new-post-button">
-  <a href="/newpost">+ New Post</a>
-</div>
-{{/if}}         --}}
-        {{!-- <div class="box"></div>
-            <div class="flex-head">
-                <span class="head-title">Head Title</span>
-                <span class="posted-by">Posted by user on date</span>
-            </div>
-            <div class="flex-content">
-                Second Item: Content. Lorem ipsum dolor sit amet consectetur adipisicing elit. At temporibus id, architecto explicabo culpa molestiae iure ex voluptatum, nobis dignissimos error? Blanditiis excepturi, illo pariatur laborum culpa voluptatibus nihil deleniti?
-            </div>
-        </div>
-        <div class="box">
-            <div class="flex-head">
-                <span class="head-title">Head Title</span>
-                <span class="posted-by">Posted by user on date</span>
-            </div>
-            <div class="flex-content">
-                First Item: Content
-            </div>
-        </div>   --}}
+{{#if logged_in}}
+<script src="/js/newcomment.js"></script>
+{{/if}}

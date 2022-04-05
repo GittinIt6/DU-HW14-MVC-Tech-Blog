@@ -10,7 +10,7 @@
   <div class="box">
     <div class="flex-head">
         <span class="head-title"><a href="/post/{{post.id}}">{{post.title}}</a></span>
-        <span class="posted-by">Posted on {{format_date post.createdAt}}</span>
+        <span class="posted-by">Posted by {{post.user.name}} on {{format_date post.createdAt}}</span>
         {{!-- <span class="posted-by">Posted by {{post.user.name}} on Dec 1, 2022</span> --}}
     </div>
     <div class="flex-content">

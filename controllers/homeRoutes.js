@@ -85,11 +85,25 @@ router.get('/profile', async (req, res) => {
         attributes: { exclude: ['password'] },
         include: [{ model: Post }],
       });
+
+      const postData = await Post.findAll({
+        where: { user_id: req.session.user_id },
+        include: [
+          {
+            model: User,
+            attributes: ['name'],
+          },
+        ],
+      });
+  
+      // Serialize data so the template can read it
+      const posts = postData.map((post) => post.get({ plain: true }));
   
       const user = currentUserData.get({ plain: true });
   
       res.render('profile', {
         ...user,
+        posts,
         logged_in: true,
         title: "Your Dashboard"
       });
@@ -167,16 +181,20 @@ router.get('/post/:id', async (req, res) => {
         },
       ],
     });
-
+    let user;
+    if (req.session.logged_in === true) {
+      const currentUserData = await User.findByPk(req.session.user_id, {
+        attributes: { exclude: ['password'] },
+      });
+      user = currentUserData.get({ plain: true });
+    }; 
     // Serialize data so the template can read it
     const posts = postData.get({ plain: true });
     let commentAry = [];
     commentAry.push(posts.comments);
-    // commentAry = commentAry[0];
-    console.log(postData.comments);
-    console.log(commentAry);
     // Pass serialized data and session flag into template
     res.render('postdetail', { 
+      ...user,
       posts,
       commentAry, 
       logged_in: req.session.logged_in,
