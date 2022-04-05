@@ -10,10 +10,10 @@
 {{#each commentAry.[0] }}
     <div class="box">
       <div class="flex-head">
-          <span class="posted-by">Comment posted by userID: {{user_id}} on {{format_date createdAt}}</span>
+          <span class="posted-by">Comment [posted on {{format_date createdAt}}]</span>
       </div>
       <div class="flex-content">
-          {{commentText}}
+          {{commentText}}  -[posted by: {{user.name}} ]
       </div>
     </div>  
 {{/each}}

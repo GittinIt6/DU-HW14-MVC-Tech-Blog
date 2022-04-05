@@ -130,9 +130,14 @@ router.get('/profile', async (req, res) => {
 
 router.get('/newpost', async (req, res) => {
   try {
+    const currentUserData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      // include: [{ model: Post }],
+    });
+    const user = currentUserData.get({ plain: true });
     res.render('newpost', { 
       // ContentData, 
-      // subContentData,
+      ...user,
       logged_in: req.session.logged_in,
       title: "Your Dashboard" 
     });
@@ -178,6 +183,10 @@ router.get('/post/:id', async (req, res) => {
         {
           model: Comment,
           attributes: ['commentText', 'user_id', 'createdAt'],
+          include: [
+            {
+              model: User,
+            },]
         },
       ],
     });
