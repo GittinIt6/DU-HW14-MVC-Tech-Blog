@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 // let title = { name: "The Tech Blog"};
 router.get('/', async (req, res) => {
   try {
@@ -96,9 +96,9 @@ router.get('/profile', async (req, res) => {
     }
 
     else {
-      res.render('profile', {
-        logged_in: false,
-        title: "Your Dashboard"
+      res.render('login', {
+        // logged_in: false,
+        title: "The Tech Blog"
       });
     }
 
@@ -121,6 +121,66 @@ router.get('/newpost', async (req, res) => {
       // subContentData,
       logged_in: req.session.logged_in,
       title: "Your Dashboard" 
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// router.get('/post/:id', async (req, res) => {
+//   try {
+//     const postData = await Post.findByPk(req.params.id, {
+//       include: [
+//         {
+//           model: User,
+//           attributes: ['name'],
+//         },
+//         {
+//           model: Comment,
+//           attributes: ['commentText'],
+//         },
+//       ],
+//     });
+
+//     const post = postData.get({ plain: true });
+//     console.log(post);
+//     res.render('postdetail', {
+//       ...post,
+//       logged_in: req.session.logged_in
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+router.get('/post/:id', async (req, res) => {
+  try {
+    // Get all projects and JOIN with user data
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+        {
+          model: Comment,
+          attributes: ['commentText', 'user_id', 'createdAt'],
+        },
+      ],
+    });
+
+    // Serialize data so the template can read it
+    const posts = postData.get({ plain: true });
+    let commentAry = [];
+    commentAry.push(posts.comments);
+    // commentAry = commentAry[0];
+    console.log(postData.comments);
+    console.log(commentAry);
+    // Pass serialized data and session flag into template
+    res.render('postdetail', { 
+      posts,
+      commentAry, 
+      logged_in: req.session.logged_in,
+      title: "The Tech Blog"
     });
   } catch (err) {
     res.status(500).json(err);
