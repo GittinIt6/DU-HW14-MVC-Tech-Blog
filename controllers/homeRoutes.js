@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
-// let title = { name: "The Tech Blog"};
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
@@ -16,7 +15,7 @@ router.get('/', async (req, res) => {
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    // Pass serialized data and session flag into template
+    // Pass data into view
     res.render('homepage', { 
       posts, 
       logged_in: req.session.logged_in,
@@ -68,18 +67,6 @@ router.get('/signup', async (req, res) => {
 
 router.get('/profile', async (req, res) => {
   try {
-    // const queryOneData = await ModelOne.findAll();
-    // const ContentData = {
-    //   "id": queryOneData[0].dataValues.id,
-    //   "content": queryOneData[0].dataValues.content,
-    // };
-
-    // const queryTwoData = await ModelTwo.findAll();
-    // const subContentData = {
-    //   "id": queryTwoData[0].dataValues.id,
-    //   "SubContent": queryTwoData[0].dataValues.SubContent,
-    //   "one_id": queryTwoData[0].dataValues.one_id,
-    // };
     if (req.session.logged_in === true) {
       const currentUserData = await User.findByPk(req.session.user_id, {
         attributes: { exclude: ['password'] },
@@ -111,18 +98,10 @@ router.get('/profile', async (req, res) => {
 
     else {
       res.render('login', {
-        // logged_in: false,
         title: "The Tech Blog"
       });
     }
 
-
-    // res.render('profile', { 
-    //   // ContentData, 
-    //   currentUserData,
-    //   logged_in: req.session.logged_in,
-    //   title: "Your Dashboard" 
-    // });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -146,34 +125,9 @@ router.get('/newpost', async (req, res) => {
   }
 });
 
-// router.get('/post/:id', async (req, res) => {
-//   try {
-//     const postData = await Post.findByPk(req.params.id, {
-//       include: [
-//         {
-//           model: User,
-//           attributes: ['name'],
-//         },
-//         {
-//           model: Comment,
-//           attributes: ['commentText'],
-//         },
-//       ],
-//     });
-
-//     const post = postData.get({ plain: true });
-//     console.log(post);
-//     res.render('postdetail', {
-//       ...post,
-//       logged_in: req.session.logged_in
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 router.get('/post/:id', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
+    // Get all projects with user data
     const postData = await Post.findByPk(req.params.id, {
       include: [
         {
@@ -202,7 +156,7 @@ router.get('/post/:id', async (req, res) => {
     const posts = postData.get({ plain: true });
     let commentAry = [];
     commentAry.push(posts.comments);
-    // Pass serialized data and session flag into template
+    // Pass data to view
     res.render('postdetail', { 
       ...user,
       posts,

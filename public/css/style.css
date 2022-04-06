@@ -85,7 +85,6 @@ header nav a:hover, .no-button:hover {
 }
 
 .flex-content {
-    /* height: 150px; */
     border: solid 5px;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
@@ -155,12 +154,10 @@ header nav a:hover, .no-button:hover {
     justify-content: center;
     text-align: center;
     vertical-align: middle;
-    /* align-items: center; */
     width: 200px;
     height: 50px;
     border-radius: 3px;
     background-color: var(--contrastBrown);
-    /* margin: auto; */
     font-size: 24px;
 }
 

@@ -1,32 +1,32 @@
 [
   {
-    "title": "Music Near Me",
-    "content": "A mobile app that will send you notifications whenever a concert is playing in your area.",
+    "title": "The tech blog is awesome",
+    "content": "I've used this blog for many years. Everyone should use it.",
     "user_id": 1
   },
   {
-    "title": "The Ultimate Tech Quiz",
-    "content": "A web app that will give users 10 new technical questions each day and track their progress in things like programming, cybersecurity, database architecture, and more!",
-    "user_id": 2
+    "title": "Apple releases first beta",
+    "content": "Not long after the release of iOS 15.4 and iPadOS 15.4 to the public, Apple is kickstarting the beta train yet again. The company is now rolling out the first betas of iOS 15.5 and iPadOS 15.5 to developer beta testers; this could represent the final iOS 15 update before iOS 16 is released this fall… -9to5mac.com",
+    "user_id": 4
   },
   {
-    "title": "Roll 'Em Up",
-    "content": "A game for Windows and macOS where players move a ball through a series of increasingly challenging mazes.",
+    "title": "Xbox controllers",
+    "content": "You won't have to reach for a remote the next time you're ready to return to your Xbox after a TV session. Microsoft is rolling out an update that lets you press the Xbox button on your controller to switch the input to your Series X or Series S. You can flip to cable TV during a download knowing that you just have to grab your controller when you're ready to play. -engadget.com",
     "user_id": 3
   },
   {
-    "title": "Title for user 3",
-    "content": "This is some content for the post",
+    "title": "Two Point Campus evolution",
+    "content": "Two Point Campus takes players back to the world of Two Point County, this time tasked with building a chain of new universities in plots adjacent to the previously-dysfunctional hospitals you have finished renovating. -engadget.com",
     "user_id": 3
   },
   {
-    "title": "User 2 title",
-    "content": "More post data - content and other things",
+    "title": "New features by Microsoft",
+    "content": "Check it out at https://www.windowscentral.com/windows-11-new-features-announced-april-2022",
     "user_id": 2
   },
   {
-    "title": "third user 2 title",
-    "content": "A bunch of text for the content of user 2's 3rd post",
-    "user_id": 2
+    "title": "Google Maps adds more features",
+    "content": "Google Maps has been able to warn you about toll roads for years now, and there is even an option to avoid toll routes when planning trips or using turn-by-turn navigation. However, Google is now going a step further by displaying estimated toll prices for an entire route, which was being tested last year. - xda-developers.com",
+    "user_id": 5
   }
 ]

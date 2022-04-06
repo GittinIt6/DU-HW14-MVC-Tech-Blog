@@ -11,7 +11,6 @@
     <div class="flex-head">
         <span class="head-title"><a href="/post/{{post.id}}">{{post.title}}</a></span>
         <span class="posted-by">Posted by {{post.user.name}} on {{format_date post.createdAt}}</span>
-        {{!-- <span class="posted-by">Posted by {{post.user.name}} on Dec 1, 2022</span> --}}
     </div>
     <div class="flex-content">
         {{post.content}}
@@ -28,23 +27,5 @@
 <a href="/login"> You must be logged in to see your dashboard </a>
 
 {{/if}}
-
-  {{!-- {{#if projects.length}}
-  <div class="col-md-6 project-list">
-    <h3>Current Projects:</h3>
-
-    {{#each projects as |project|}}
-    <div class="row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/project/{{project.id}}">{{project.name}}</a></h4>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-</div> --}}
 
 {{!-- <script src="./js/profile.js"></script> --}}

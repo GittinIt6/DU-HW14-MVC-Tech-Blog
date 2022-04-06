@@ -1,32 +1,32 @@
 [
   {
-    "commentText": "This is comment 1",
-    "post_id": "A mobile app that will send you notifications whenever a concert is playing in your area.",
-    "user_id": 1
-  },
-  {
-    "commentText": "This is comment 1",
+    "commentText": "This is a great post.",
     "post_id": 1,
     "user_id": 1
   },
   {
-    "commentText": "This is comment 1",
+    "commentText": "I don't like this post.",
+    "post_id": 1,
+    "user_id": 2
+  },
+  {
+    "commentText": "Cool!",
     "post_id": 2,
     "user_id": 2
   },
   {
-    "commentText": "This is comment 1",
+    "commentText": ":) Love it!!",
     "post_id": 2,
     "user_id": 4
   },
   {
-    "commentText": "This is comment 1",
-    "post_id": 2,
+    "commentText": "Actually, not an accurate post.",
+    "post_id": 3,
     "user_id": 4
   },
   {
-    "commentText": "This is comment 1",
-    "post_id": 2,
-    "user_id": 4
+    "commentText": "Ok, I'll agree to disagree.",
+    "post_id": 4,
+    "user_id": 5
   }
 ]

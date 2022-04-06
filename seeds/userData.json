@@ -15,8 +15,13 @@
     "password": "password12345"
   },
   {
-    "name": "tester",
+    "name": "BobLoblaw",
     "email": "tester@email.com",
+    "password": "password12345"
+  },
+  {
+    "name": "Shrek",
+    "email": "shrek20@me.com",
     "password": "password12345"
   }
 ]
